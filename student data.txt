@@ -1,0 +1,34 @@
+import math
+class Student:
+    def _init_(self):
+        self.fname,self.lname=input("enter fullname:").split()
+        self.marks=int(input("enter marks :"))
+        self.contact_no=int(input("enter contact no: "))
+    def _lt_(self, other):
+        return self.marks < other.marks
+    
+arr=[]
+n= int(input("enter number of records u want to store : "))
+for i in range(n):
+    obj=Student()
+    arr.append(obj)
+    
+def fallback():
+  print("Error!!!Please provide proper input!!")
+
+def option():
+    choice=int(input("Enter the operation detail: \n \
+      1: Sorting using first name \n \
+      2: Finding Minimum marks \n \
+      3: Exit\n \
+      Option:"))
+               
+    if choice == 1:
+        arr.sort(key=lambda x:x.fname)
+        print([a.fname for a in arr])
+    elif choice ==2:
+        print(min(arr).marks)   
+    else:
+        fallback()
+    option()
+option()

@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[16]:
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# In[17]:
+
+
+def objective(x):
+  return x**2.0
+
+
+# In[18]:
+
+
+x_min ,x_max =-1.0 ,1.0
+inputs =np.arange(x_min ,x_max +0.1 ,0.1)
+inputs
+
+
+# In[19]:
+
+
+results= objective(inputs)
+
+
+# In[20]:
+
+
+plt.figure(figsize=(12,9))
+plt.axvline(x=0)
+plt.axhline(y=0)
+plt.plot(inputs,results)
+
+
+# In[21]:
+
+
+def derivative(x):
+  return x*2.0
+
+
+# In[22]:
+
+
+def gradient_descent(objective,derivative,bounds,n_iters, step_size):
+  x=[]
+  y=[]
+  solution= bounds.min() +np.random.uniform(0,1)*(bounds.max()-bounds.min())
+  for i in range(n_iters):
+    gradient= derivative(solution)
+    solution =solution -step_size*gradient
+    solution_eval = objective(solution)
+    x.append(solution)
+    y.append(solution_eval)
+
+    print("f(x)=",round(solution_eval ,4), "for x =" ,round(solution,3))
+  return [solution,solution_eval,x,y]
+
+
+# In[23]:
+
+
+x_min =-1.0 
+x_max =1.0
+bounds=np.arange(x_min ,x_max+0.1 ,0.1)
+solution= bounds.min() +np.random.uniform(0,1)*(bounds.max()-bounds.min())
+
+
+# In[24]:
+
+
+step_size=0.1
+n_iters =25
+solution_ret ,solution_eval_ret ,x,y =gradient_descent(objective ,derivative ,bounds ,n_iters ,step_size)
+
+
+# In[25]:
+
+
+plt.figure(figsize=(12,9))
+plt.axvline(x=0)
+plt.axhline(y=0)
+plt.plot(inputs,results)
+plt.plot(x,y,'*-' ,color='r')
